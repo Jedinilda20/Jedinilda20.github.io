@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jedinilda dos Reis | Networking & AI</title>
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #8e44ad;
+        --secondary: #9b59b6;
+        --accent: #3498db;
+        --light: #f7f9fc;
+        --dark: #2c3e50;
+        --text: #34495e;
+        --success: #2ecc71;
+        --info: #3498db;
+        --warning: #f39c12;
+        --danger: #e74c3c;
+        --border-radius: 12px;
+        --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--text);
+        background-color: var(--light);
+        line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Raleway", sans-serif;
+        font-weight: 600;
+        line-height: 1.3;
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--accent);
+        transition: var(--transition);
+      }
+
+      a:hover {
+        color: var(--primary);
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none"/><path d="M-20,20 L40,80 L100,20 L160,80" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/><path d="M-20,40 L40,100 L100,40 L160,100" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/><path d="M-20,60 L40,120 L100,60 L160,120" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/><path d="M-20,80 L40,140 L100,80 L160,140" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/><path d="M-20,100 L40,160 L100,100 L160,160" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>');
+        opacity: 0.4;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .header-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .header-image {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-img-container {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        box-shadow: var(--shadow);
+      }
+
+      .profile-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .name {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .location {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: white;
+        color: var(--primary);
+      }
+
+      .btn-primary:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-outline:hover {
+        background-color: white;
+        color: var(--primary);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-btns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.3rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+      }
+
+      .social-links a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+      }
+
+      .visitor-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        color: white;
+      }
+
+      /* Navbar */
+      .navbar {
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--primary);
+      }
+
+      .nav-list {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+      }
+
+      .nav-list li a {
+        color: var(--text);
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .nav-list li a:hover {
+        color: var(--primary);
+      }
+
+      .mobile-toggle {
+        display: none;
+        font-size: 1.5rem;
+        color: var(--text);
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Sections */
+      .section {
+        padding: 6rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 4rem;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+        display: inline-block;
+        margin-bottom: 1rem;
+      }
+
+      .section-title p {
+        font-size: 1.1rem;
+        color: var(--text);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--primary);
+        border-radius: 2px;
+      }
+
+      /* About */
+      .about-container {
+        display: flex;
+        gap: 4rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .about-image {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .about-img {
+        width: 100%;
+        max-width: 400px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+
+      .about-text {
+        flex: 1.5;
+        min-width: 300px;
+      }
+
+      .about-heading {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+      }
+
+      .about-description {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .about-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .info-item {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .info-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+      }
+
+      .info-item p {
+        font-size: 1rem;
+        color: var(--text);
+      }
+
+      .about-btns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-secondary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--secondary);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Skills */
+      .skills-section {
+        background-color: var(--light);
+      }
+
+      .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .skill-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .skill-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .skill-header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .skill-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .skill-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .skill-subtitle {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .skill-body {
+        padding: 1.5rem;
+      }
+
+      .skill-list {
+        list-style: none;
+      }
+
+      .skill-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .skill-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .skill-item i {
+        color: var(--primary);
+        margin-right: 0.8rem;
+        font-size: 1.1rem;
+      }
+
+      /* Experience */
+      .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background-color: var(--light);
+        border-radius: 2px;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 4rem;
+      }
+
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content {
+        margin-right: 50%;
+        padding-right: 3rem;
+        text-align: right;
+      }
+
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 50%;
+        padding-left: 3rem;
+        text-align: left;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        border: 4px solid white;
+        box-shadow: 0 0 0 2px var(--primary);
+      }
+
+      .timeline-date {
+        position: absolute;
+        top: 0;
+        width: auto;
+        padding: 0.5rem 1rem;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-date {
+        right: calc(50% + 2rem);
+      }
+
+      .timeline-item:nth-child(even) .timeline-date {
+        left: calc(50% + 2rem);
+      }
+
+      .timeline-content {
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .timeline-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .timeline-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .timeline-description {
+        margin-bottom: 0;
+        line-height: 1.7;
+      }
+
+      .timeline-description ul {
+        padding-left: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .timeline-description li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Projects */
+      .projects-section {
+        background-color: var(--light);
+      }
+
+      .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .project-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .project-body {
+        padding: 1.5rem;
+      }
+
+      .project-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .project-description {
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        padding: 0.3rem 0.8rem;
+        background-color: var(--light);
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .project-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .project-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      /* Certificates */
+      .certificates-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .certificate-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+      }
+
+      .certificate-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .certificate-image {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+      }
+
+      .certificate-body {
+        padding: 1.5rem;
+      }
+
+      .certificate-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .certificate-issuer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+
+      .certificate-date {
+        font-size: 0.8rem;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+      }
+
+      .certificate-link {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .certificate-link:hover {
+        background-color: var(--secondary);
+        color: white;
+      }
+
+      /* Contact */
+      .contact-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 4rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .contact-details h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .contact-details p,
+      .contact-details a {
+        font-size: 1rem;
+        color: var(--text);
+        margin-bottom: 0;
+      }
+
+      .contact-details a:hover {
+        color: var(--primary);
+      }
+
+      .contact-form {
+        background-color: white;
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        color: var(--text);
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      /* Footer */
+      .footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+      }
+
+      .footer-text {
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .footer-social a {
+        color: white;
+        font-size: 1.2rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: var(--transition);
+      }
+
+      .footer-social a:hover {
+        background-color: var(--primary);
+      }
+
+      .footer-title {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        color: white;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-links li a {
+        color: rgba(255, 255, 255, 0.8);
+        transition: var(--transition);
+      }
+
+      .footer-links li a:hover {
+        color: white;
+        padding-left: 0.5rem;
+      }
+
+      .footer-newsletter p {
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .newsletter-form {
+        display: flex;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 8px 0 0 8px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+      }
+
+      .newsletter-input:focus {
+        outline: none;
+      }
+
+      .newsletter-btn {
+        padding: 0 1.5rem;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .newsletter-btn:hover {
+        background-color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media screen and (max-width: 992px) {
+        .header-content {
+          flex-direction: column-reverse;
+          text-align: center;
+          padding: 4rem 0;
+        }
+
+        .header-btns {
+          justify-content: center;
+        }
+
+        .social-links {
+          justify-content: center;
+        }
+
+        .about-container {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .about-info {
+          justify-content: center;
+        }
+
+        .about-btns {
+          justify-content: center;
+        }
+
+        .timeline::before {
+          left: 30px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content,
+        .timeline-item:nth-child(even) .timeline-content {
+          margin: 0 0 0 80px;
+          padding: 0;
+          text-align: left;
+        }
+
+        .timeline-dot {
+          left: 30px;
+        }
+
+        .timeline-date {
+          position: relative;
+          top: -30px;
+          left: 0 !important;
+          right: auto !important;
+          margin-bottom: 15px;
+          display: inline-block;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .nav-list {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: white;
+          flex-direction: column;
+          padding: 1rem 0;
+          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-list.active {
+          display: flex;
+        }
+
+        .nav-list li {
+          margin: 0.5rem 0;
+          text-align: center;
+        }
+
+        .mobile-toggle {
+          display: block;
+        }
+
+        .contact-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        .name {
+          font-size: 2.5rem;
+        }
+
+        .title {
+          font-size: 1.2rem;
+        }
+
+        .section-title h2 {
+          font-size: 2rem;
+        }
+
+        .header-btns {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate {
+        animation-duration: 0.8s;
+        animation-fill-mode: both;
+      }
+
+      .fade-in {
+        animation-name: fadeIn;
+      }
+
+      .slide-in-left {
+        animation-name: slideInLeft;
+      }
+
+      .slide-in-right {
+        animation-name: slideInRight;
+      }
+
+      .delay-1 {
+        animation-delay: 0.2s;
+      }
+
+      .delay-2 {
+        animation-delay: 0.4s;
+      }
+
+      .delay-3 {
+        animation-delay: 0.6s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="home">
+      <div class="container">
+        <div class="header-content">
+          <div class="header-text animate fade-in">
+            <h1 class="name">Jedinilda Serafines Seixas dos Reis</h1>
+            <h2 class="title">Networking & AI</h2>
+            <div class="location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Dili, Timor-Leste</span>
+            </div>
+            <div class="header-btns">
+              <a href="#contact" class="btn btn-primary">Contact Me</a>
+              <a href="#projects" class="btn btn-outline">View My Work</a>
+            </div>
+            <div class="social-links">
+              <a
+                href="https://linkedin.com/in/jedinildadosreis"
+                target="_blank"
+                title="LinkedIn"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="https://github.com/Jedinilda20"
+                target="_blank"
+                title="GitHub"
+              >
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="mailto:Jedinilda20@gmail.com" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+          <div class="header-image animate fade-in delay-1">
+            <div class="profile-img-container">
+              <img
+                src="https://github.com/Jedinilda20.png"
+                alt="Jedinilda dos Reis"
+                class="profile-img"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="visitor-counter">
+        <img
+          src="https://visitor-badge.laobi.icu/badge?page_id=Jedinilda20.Jedinilda20"
+          alt="Visitor Count"
+        />
+      </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-container">
+          <a href="#home" class="logo">Jedinilda</a>
+          <button class="mobile-toggle" id="mobile-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="nav-list" id="nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>About Me</h2>
+          <p>Get to know more about me and my background</p>
+        </div>
+        <div class="about-container">
+          <div class="about-image animate slide-in-left">
+            <img
+              src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="About Image"
+              class="about-img"
+            />
+          </div>
+          <div class="about-text animate slide-in-right">
+            <h3 class="about-heading">Hello, I'm Jedinilda!</h3>
+            <p class="about-description">
+              I am a recent Informatics Engineering graduate from the National
+              University of Timor-Leste with a passion for networking and
+              artificial intelligence. I excel in teamwork environments and have
+              gained valuable real-world experience through my various roles and
+              projects.
+            </p>
+            <p class="about-description">
+              My final graduation project involved creating a chatbot for Timor
+              Telecom to enhance customer service operations. I'm dedicated to
+              applying my technical skills in meaningful ways and contributing
+              to the growing tech ecosystem in Timor-Leste.
+            </p>
+            <div class="about-info">
+              <div class="info-item">
+                <h3>Education</h3>
+                <p>Bachelor's degree in Informatics Engineering</p>
+              </div>
+              <div class="info-item">
+                <h3>Location</h3>
+                <p>Dili, Timor-Leste</p>
+              </div>
+              <div class="info-item">
+                <h3>Email</h3>
+                <p>Jedinilda20@gmail.com</p>
+              </div>
+              <div class="info-item">
+                <h3>Graduation</h3>
+                <p>Dec 2024</p>
+              </div>
+            </div>
+            <div class="about-btns">
+              <a href="#contact" class="btn btn-secondary">Hire Me</a>
+              <a href="#skills" class="btn btn-outline">My Skills</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>My Skills</h2>
+          <p>These are my areas of expertise and technical competencies</p>
+        </div>
+        <div class="skills-container">
+          <div class="skill-card animate fade-in">
+            <div class="skill-header">
+              <div class="skill-icon">
+                <i class="fas fa-network-wired"></i>
+              </div>
+              <h3 class="skill-title">Networking</h3>
+              <p class="skill-subtitle">Network Management & Optimization</p>
+            </div>
+            <div class="skill-body">
+              <ul class="skill-list">
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Core Network Operations
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Messaging Platform Management
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Data Flow Optimization
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Network Troubleshooting
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Telecom Systems
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-card animate fade-in delay-1">
+            <div class="skill-header">
+              <div class="skill-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3 class="skill-title">AI & Chatbots</h3>
+              <p class="skill-subtitle">Artificial Intelligence & Automation</p>
+            </div>
+            <div class="skill-body">
+              <ul class="skill-list">
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Chatbot Development
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Chatfuel Platform
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Facebook Messenger Integration
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Customer Service Automation
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  AI-Driven Solutions
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-card animate fade-in delay-2">
+            <div class="skill-header">
+              <div class="skill-icon">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+              <h3 class="skill-title">Technical Support</h3>
+              <p class="skill-subtitle">IT Support & System Maintenance</p>
+            </div>
+            <div class="skill-body">
+              <ul class="skill-list">
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Computer Systems Maintenance
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Hardware Troubleshooting
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Software Troubleshooting
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  System Upgrades
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  IT Infrastructure Support
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="skill-card animate fade-in delay-3">
+            <div class="skill-header">
+              <div class="skill-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="skill-title">Data Analysis</h3>
+              <p class="skill-subtitle">Data Visualization & Reporting</p>
+            </div>
+            <div class="skill-body">
+              <ul class="skill-list">
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Google Sheets Data Integration
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Looker Studio Dashboard Creation
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Customer Satisfaction Analysis
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Data-Driven Insights
+                </li>
+                <li class="skill-item">
+                  <i class="fas fa-check-circle"></i>
+                  Reporting & Visualization
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Experience</h2>
+          <p>My professional journey and work experience</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Mar - Jun 2024</div>
+            <div class="timeline-content animate fade-in">
+              <h3 class="timeline-title">Graduation Project</h3>
+              <h4 class="timeline-subtitle">Timor Telecom</h4>
+              <div class="timeline-description">
+                <ul>
+                  <li>
+                    Researched and developed a chatbot to enhance customer
+                    service operations
+                  </li>
+                  <li>
+                    Utilized Chatfuel to create the chatbot on the Messenger
+                    platform, streamlining customer interactions
+                  </li>
+                  <li>
+                    Integrated customer satisfaction data into Google Sheets and
+                    built a reporting dashboard with Looker Studio for
+                    actionable insights
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Sep - Nov 2023</div>
+            <div class="timeline-content animate fade-in">
+              <h3 class="timeline-title">Professional Trainee</h3>
+              <h4 class="timeline-subtitle">Timor Telecom</h4>
+              <div class="timeline-description">
+                <ul>
+                  <li>
+                    Gained hands-on experience in Core Network Operations and
+                    Messaging Platform management
+                  </li>
+                  <li>
+                    Learned to improve data flow and efficiency in the Data and
+                    Messaging Platform
+                  </li>
+                  <li>
+                    Learned operational processes for network optimization,
+                    gaining practical knowledge in telecom systems management
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Jul - Aug 2023</div>
+            <div class="timeline-content animate fade-in">
+              <h3 class="timeline-title">IT Support</h3>
+              <h4 class="timeline-subtitle">
+                Serviço Municipal de Saúde, Lautém
+              </h4>
+              <div class="timeline-description">
+                <ul>
+                  <li>
+                    Provided IT support, ensuring smooth operation of computer
+                    systems and networks
+                  </li>
+                  <li>
+                    Assisted in troubleshooting hardware and software issues,
+                    improving efficiency in daily operations
+                  </li>
+                  <li>
+                    Contributed to maintaining and upgrading software to meet
+                    organizational needs
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Projects</h2>
+          <p>Explore my recent work and key achievements</p>
+        </div>
+        <div class="projects-container">
+          <div class="project-card animate fade-in">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Chatbot Project"
+              class="project-image"
+            />
+            <div class="project-body">
+              <h3 class="project-title">Customer Service Chatbot</h3>
+              <p class="project-description">
+                Developed a comprehensive chatbot solution for Timor Telecom to
+                automate customer inquiries, provide instant support, and gather
+                customer feedback.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">Chatfuel</span>
+                <span class="tech-tag">Messenger Platform</span>
+                <span class="tech-tag">Google Sheets</span>
+                <span class="tech-tag">Looker Studio</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://www.linkedin.com/in/jedinildadosreis/"
+                  class="project-link"
+                >
+                  <i class="fas fa-link"></i>
+                  View Project
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="project-card animate fade-in delay-1">
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Data Dashboard"
+              class="project-image"
+            />
+            <div class="project-body">
+              <h3 class="project-title">Customer Satisfaction Dashboard</h3>
+              <p class="project-description">
+                Created an interactive dashboard to visualize customer
+                satisfaction metrics and feedback data for Timor Telecom's
+                management team.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">Looker Studio</span>
+                <span class="tech-tag">Data Visualization</span>
+                <span class="tech-tag">Google Sheets</span>
+                <span class="tech-tag">Analytics</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://www.linkedin.com/in/jedinildadosreis/"
+                  class="project-link"
+                >
+                  <i class="fas fa-link"></i>
+                  View Project
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Certificates</h2>
+          <p>Educational achievements and professional certifications</p>
+        </div>
+        <div class="certificates-container">
+          <div class="certificate-card animate fade-in">
+            <img
+              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Certificate"
+              class="certificate-image"
+            />
+            <div class="certificate-body">
+              <h3 class="certificate-title">
+                Graphic Design with Inkscape: Basic and Advanced
+              </h3>
+              <p class="certificate-issuer">
+                <i class="fas fa-certificate"></i>
+                Fundasaun Hadomi Timor
+              </p>
+              <p class="certificate-date">August 2021</p>
+              <a href="#" class="certificate-link">View Certificate</a>
+            </div>
+          </div>
+          <div class="certificate-card animate fade-in delay-1">
+            <img
+              src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Certificate"
+              class="certificate-image"
+            />
+            <div class="certificate-body">
+              <h3 class="certificate-title">
+                Digital Literacy for International Students
+              </h3>
+              <p class="certificate-issuer">
+                <i class="fas fa-certificate"></i>
+                STIKOM Uyelindo Kupang
+              </p>
+              <p class="certificate-date">January 2022</p>
+              <a href="#" class="certificate-link">View Certificate</a>
+            </div>
+          </div>
+          <div class="certificate-card animate fade-in delay-2">
+            <img
+              src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Certificate"
+              class="certificate-image"
+            />
+            <div class="certificate-body">
+              <h3 class="certificate-title">English I for Beginners</h3>
+              <p class="certificate-issuer">
+                <i class="fas fa-certificate"></i>
+                East Timor Development Agency
+              </p>
+              <p class="certificate-date">November 2019</p>
+              <a href="#" class="certificate-link">View Certificate</a>
+            </div>
+          </div>
+          <div class="certificate-card animate fade-in delay-3">
+            <img
+              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Certificate"
+              class="certificate-image"
+            />
+            <div class="certificate-body">
+              <h3 class="certificate-title">Internship Student Program</h3>
+              <p class="certificate-issuer">
+                <i class="fas fa-certificate"></i>
+                Lautém District Administration
+              </p>
+              <p class="certificate-date">July 2023</p>
+              <a href="#" class="certificate-link">View Certificate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contact Me</h2>
+          <p>Get in touch for collaborations or opportunities</p>
+        </div>
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="contact-item animate fade-in">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Email</h3>
+                <a href="mailto:Jedinilda20@gmail.com">Jedinilda20@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-item animate fade-in delay-1">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Phone</h3>
+                <p>+670-78**-**</p>
+              </div>
+            </div>
+            <div class="contact-item animate fade-in delay-2">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-details">
+                <h3>Location</h3>
+                <p>Kampung-Merdeka, Comoro, Dili, Timor-Leste</p>
+              </div>
+            </div>
+            <div class="contact-item animate fade-in delay-3">
+              <div class="contact-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+              <div class="contact-details">
+                <h3>LinkedIn</h3>
+                <a
+                  href="https://www.linkedin.com/in/jedinildadosreis"
+                  target="_blank"
+                  >linkedin.com/in/jedinildadosreis</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="contact-form animate fade-in">
+            <form action="#" method="POST">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="message" class="form-label">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  class="form-control"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-secondary">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-container">
+          <div class="footer-about">
+            <h3 class="footer-logo">Jedinilda</h3>
+            <p class="footer-text">
+              Recent Informatics Engineering graduate with a passion for
+              networking, AI, and chatbot development. Looking to contribute to
+              innovative projects in Timor-Leste and beyond.
+            </p>
+            <div class="footer-social">
+              <a href="https://linkedin.com/in/jedinildadosreis" target="_blank"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="https://github.com/jedinildadosreis" target="_blank"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a href="mailto:Jedinilda20@gmail.com"
+                ><i class="fas fa-envelope"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-links-container">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#experience">Experience</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#certificates">Certificates</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-newsletter">
+            <h3 class="footer-title">Newsletter</h3>
+            <p>
+              Subscribe to receive updates on my latest projects and tech
+              insights.
+            </p>
+            <form class="newsletter-form">
+              <input
+                type="email"
+                placeholder="Your email address"
+                class="newsletter-input"
+                required
+              />
+              <button type="submit" class="newsletter-btn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">
+            &copy; 2025 Jedinilda dos Reis. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile navigation toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileToggle = document.getElementById("mobile-toggle");
+        const navList = document.getElementById("nav-list");
+
+        mobileToggle.addEventListener("click", function () {
+          navList.classList.toggle("active");
+
+          const icon = mobileToggle.querySelector("i");
+          if (navList.classList.contains("active")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-times");
+          } else {
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+          }
+        });
+
+        // Close mobile menu when clicking on a nav item
+        const navItems = document.querySelectorAll(".nav-list li a");
+        navItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            navList.classList.remove("active");
+            const icon = mobileToggle.querySelector("i");
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+          });
+        });
+
+        // Animation on scroll
+        const animateElements = document.querySelectorAll(".animate");
+
+        function isInViewport(element) {
+          const rect = element.getBoundingClientRect();
+          return (
+            rect.top <=
+              (window.innerHeight || document.documentElement.clientHeight) *
+                0.8 && rect.bottom >= 0
+          );
+        }
+
+        function checkAnimations() {
+          animateElements.forEach((element) => {
+            if (
+              isInViewport(element) &&
+              !element.classList.contains("animated")
+            ) {
+              element.classList.add("animated");
+            }
+          });
+        }
+
+        // Initial check
+        checkAnimations();
+
+        // Check on scroll
+        window.addEventListener("scroll", checkAnimations);
+      });
+    </script>
+  </body>
+</html>
